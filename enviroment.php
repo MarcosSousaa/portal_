@@ -1,0 +1,2 @@
+<?php 
+define("ENVIROMENT", "development");

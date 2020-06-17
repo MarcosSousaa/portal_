@@ -1,0 +1,33 @@
+
+input[type=text],
+input[type=date],
+input[type=email],
+input[type=password],
+input[type=number],
+select,
+textarea{
+    width: 25%;
+    height: 30px;
+    font-size: 13px;
+    outline: 0;    
+    box-sizing: border-box;    
+}
+
+fieldset{
+	width: 45%;
+	height: 130px;
+	float: left;
+	background: #bdc3c7;
+	color: #1e3799;
+}
+.novo-fieldset{
+	width: 47%;
+	height: 200px;
+	float: left;
+	background: #bdc3c7;
+	color: #1e3799;	
+}
+
+.title{
+	color:blue;
+}

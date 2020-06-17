@@ -1,0 +1,32 @@
+body {
+  font: 90%/1.6 "Myriad Pro", Frutiger, "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", Verdana, sans-serif;
+}
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #666;
+}
+.table thead {  
+  border-top: 1px solid #a5a5a5;
+  border-bottom: 1px solid #a5a5a5;
+}
+.table tr:hover {
+  background-color:#3d80df;
+  color: #fff;
+}
+.table thead tr:hover {
+  background-color: transparent;
+  color: inherit;
+}
+.table tr:nth-child(even) {
+    background-color: #edf5ff;
+}
+.table th {
+  font-weight: normal;
+  text-align: left;
+}
+.table th, td {
+  padding: 0.1em 1em;
+  border-right: 1px solid #95a5a6;
+  border-bottom: 1px solid #95a5a6;
+}

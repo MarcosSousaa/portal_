@@ -4,18 +4,8 @@ function geraReport(obj) {
     window.open(url, "Reports", "width=1024,height=800");
     return false;
 }
-function geraPdf(obj) {
-    var data = $(obj).serialize();    
-    var url = BASE_URL + "/reports/limpeza_pdf?" + data;  
-    window.open(url, "Reports", "width=700,height=500");
-    return false;
-}
-$(document).ready(function () {
-	$('.pdf').click(function(){
-		$('#frmLimpeza').submit(geraPdf($('#frmLimpeza')));
-		return false;
-	});
 
+$(document).ready(function () {
 	$('.report').click(function(){
 		$('#frmLimpeza').submit(geraReport($('#frmLimpeza')));
 		return false;

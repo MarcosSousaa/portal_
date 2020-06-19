@@ -18,7 +18,7 @@
             <button class="btn btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fa fa-bars"></i></button>
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
                 <div class="input-group">
-                   <span style="color: white">User : <?=$viewData['info_template']['nome_usuario'] ?></span>
+                   <span style="color: white">Usuario : <?=$viewData['info_template']['nome_usuario'] ?></span>
                 </div>
             </form>
             <!-- Navbar-->

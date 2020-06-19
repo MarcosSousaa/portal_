@@ -4,18 +4,8 @@ function geraReport(obj) {
     window.open(url, "Reports", "width=1024,height=800");
     return false;
 }
-function geraPdf(obj) {
-    var data = $(obj).serialize();    
-    var url = BASE_URL + "/reports/perda_pdf?" + data;      
-    window.open(url, "Reports", "width=700,height=500");
-    return false;
-}
-$(document).ready(function () {	
-	$('.pdf').click(function(){
-		$('#frmPerda').submit(geraPdf($('#frmPerda')));
-		return false;
-	});
 
+$(document).ready(function () {	
 	$('.report').click(function(){
 		$('#frmPerda').submit(geraReport($('#frmPerda')));
 		return false;

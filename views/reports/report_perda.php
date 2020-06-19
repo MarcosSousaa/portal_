@@ -81,8 +81,7 @@
         </div>
     </div>
     <div style="text-align: center">
-        <button class="btn btn-primary report">Gerar Relatorio <i class="fa fa-file"></i></button>
-        <button class="btn btn-danger pdf">Gerar PDF <i class="fa fa-file-pdf-o"></i></button>
+        <button class="btn btn-primary report">Gerar Relatorio <i class="fa fa-file"></i></button>        
         <a class="btn btn-info" href="<?= BASE_URL?>/reports">VOLTAR <i class="fa fa-arrow-circle-left"></i></a>
     </div>
 

@@ -45,7 +45,8 @@ class permissionsController extends Controller {
             $permissions = new Permissions();
             if (isset($_POST['name']) && !empty($_POST['name'])) {
                 $pname = addslashes($_POST['name']);
-                $permissions->add($pname);
+                $pdesc = addslashes($_POST['descricao']);
+                $permissions->add($pname,$pdesc);
                 header("Location: " . BASE_URL . "/permissions");
                 exit();
             }

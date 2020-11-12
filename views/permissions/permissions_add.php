@@ -3,6 +3,10 @@
 <form method="POST">
     <div class="form-group col-xs-4">
     	 <label for="name">Nome da Permissão</label>
+    	<input type="text" name="descricao" class="form-control">	
+    </div>
+    <div class="form-group col-xs-4">
+    	 <label for="name">Nome Tecnico</label>
     	<input type="text" name="name" class="form-control">	
     </div>
     <input type="submit" value="Adicionar" class="btn btn-primary">

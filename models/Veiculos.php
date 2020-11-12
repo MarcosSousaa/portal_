@@ -1,8 +1,8 @@
 <?php
 
 class Veiculos extends Model{
-	public function getList($offset){
-		$sql = "SELECT * FROM veiculos  LIMIT $offset, 10";
+	public function getList(){
+		$sql = "SELECT * FROM veiculos";
         $stmt = $this->db->prepare($sql);        
         $stmt->execute();
         if ($stmt->rowCount() > 0) {

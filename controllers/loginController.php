@@ -43,6 +43,7 @@ class LoginController extends Controller {
 			}		
 		}
 		else {
+			
 			$this->loadView('login', $data);	
 		}
 		

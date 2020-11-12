@@ -8,7 +8,8 @@
         <link rel="stylesheet" href="<?= BASE_URL ?>/assets/bootstrap/css/bootstrap.min.css">
         <link href="<?= BASE_URL ?>/assets/css/template.css" rel="stylesheet"/>
         <link href="<?= BASE_URL ?>/assets/css/graphic.css" rel="stylesheet"/> 
-        <link href="<?= BASE_URL ?>/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+        <link href="<?= BASE_URL ?>/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>        
+        <link rel="stylesheet" type="text/css" href="<?=BASE_URL ?>/assets/DataTables/datatables.min.css"/> 
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand bg-red">
@@ -62,5 +63,6 @@
         <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/jquery.mask.js"></script>
         <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="<?= BASE_URL ?>/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<?=BASE_URL ?>/assets/DataTables/datatables.min.js"></script>
     </body>
 </html>

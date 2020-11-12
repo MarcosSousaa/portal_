@@ -12,6 +12,9 @@ class Controller{
          *  $idade = 20;
          */
 		extract($viewData);
+        if(file_exists('./views/card/'. $viewName . '.php')){
+            include './views/card/'. $viewName . '.php';    
+        }
         if(file_exists('./views/chaves/'. $viewName . '.php')){
             include './views/chaves/'. $viewName . '.php';    
         }
@@ -51,6 +54,12 @@ class Controller{
         if(file_exists('./views/veiculos/'. $viewName . '.php')){
             include './views/veiculos/'. $viewName . '.php';    
         }
+        if(file_exists('./views/matprima/'. $viewName . '.php')){
+            include './views/matprima/'. $viewName . '.php';    
+        }
+        if(file_exists('./views/loteint/'. $viewName . '.php')){
+            include './views/loteint/'. $viewName . '.php';    
+        }
 		
 	}
 
@@ -60,6 +69,9 @@ class Controller{
     
     public function loadViewInTemplate($viewName, $viewData = array()) {
         extract($viewData);
+        if(file_exists('./views/card/'. $viewName . '.php')){
+            include './views/card/'. $viewName . '.php';    
+        }
           if(file_exists('./views/chaves/'. $viewName . '.php')){
             include './views/chaves/'. $viewName . '.php';    
         }
@@ -98,6 +110,12 @@ class Controller{
         }
         if(file_exists('./views/veiculos/'. $viewName . '.php')){
             include './views/veiculos/'. $viewName . '.php';    
+        }
+        if(file_exists('./views/matprima/'. $viewName . '.php')){
+            include './views/matprima/'. $viewName . '.php';    
+        }
+        if(file_exists('./views/loteint/'. $viewName . '.php')){
+            include './views/loteint/'. $viewName . '.php';    
         }
     }
 

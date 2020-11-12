@@ -1,7 +1,13 @@
 <?php    
     
-    $t_prod = implode('', $total_producao);
-    $t_perda = implode('', $total_perda); 
+    //$t_prod = implode('', $total_producao);
+    //$t_perda = implode('', $total_perda);
+    foreach($total_producao as $tot_producao => $producao):
+        $t_prod = $t_prod + $producao;
+    endforeach; 
+    foreach($total_perda as $tot_perda => $perda):
+        $t_perda = $t_perda + $perda;
+    endforeach; 
     foreach($total_perda_apara as $perda_apara => $apara):
         $t_apara = $t_apara + $apara;
     endforeach;
@@ -71,15 +77,15 @@
                     </tr>
                     <tr>
                         <td><?= number_format($total_producao_ext['01'],3,',','.');?></td>
-                        <td><?= number_format($total_perda_ext['01'],3,',','.');?></td>
+                        <td><?= number_format($total_perda_ext['EXT01'],3,',','.');?></td>
                         <td><?= number_format($total_producao_ext['02'],3,',','.');?></td>
-                        <td><?= number_format($total_perda_ext['02'],3,',','.');?></td>
+                        <td><?= number_format($total_perda_ext['EXT02'],3,',','.');?></td>
                         <td><?= number_format($total_producao_ext['03'],3,',','.');?></td>
-                        <td><?= number_format($total_perda_ext['03'],3,',','.');?></td>
+                        <td><?= number_format($total_perda_ext['EXT03'],3,',','.');?></td>
                         <td><?= number_format($total_producao_ext['04'],3,',','.');?></td>
-                        <td><?= number_format($total_perda_ext['04'],3,',','.');?></td>                        
+                        <td><?= number_format($total_perda_ext['EXT04'],3,',','.');?></td>                        
                         <td><?= number_format($total_producao_ext['05'],3,',','.');?></td>
-                        <td><?= number_format($total_perda_ext['05'],3,',','.');?></td>                        
+                        <td><?= number_format($total_perda_ext['EXT05'],3,',','.');?></td>                        
                     </tr>
                 </table>
                 </section>
@@ -185,7 +191,7 @@
 
     var turno =  <?php echo json_encode(array_values($turno)); ?>;
 
-    var extrusora =  <?php echo json_encode(array_values($extrusora)); ?>;
+    var extrusora =  <?php echo json_encode(array_values($maquina)); ?>;
 
     var total_producao_ext = <?php echo json_encode(array_values($total_producao_ext)); ?>;
 

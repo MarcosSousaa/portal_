@@ -20,21 +20,13 @@ class operadorController extends Controller {
         $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu,$this->card);    
         if ($this->user->hasPermission('operador_view')) { 
         	$op = new Operador();
-        	$offset = 0; 
-
-        	//questão com paginação
-            $data['p'] = 1;
-            if (isset($_GET['p']) && !empty($_GET['p'])) {
-                $data['p'] = intval($_GET['p']);
-                if ($data['p'] == 0) {
-                    $data['p'] = 1;
-            	}
-        	}
-            $offset = (10 * ($data['p'] - 1));
-
+        	$data['status'] = array(
+                '0' => 'Inativo',
+                '1' => 'Ativo'
+            );
             $data['operador_list'] = $op->getList($offset);
             $data['operador_count'] = $op->getCount();
-            $data['p_count'] = ceil($data['operador_count'] / 10); //sempre arredonda pra cima
+ 
 
             $this->loadTemplate('operador', $data);
         } 
@@ -68,7 +60,8 @@ class operadorController extends Controller {
         	$op = new Operador();
         	if(isset($_POST['operador']) && !empty($_POST['operador'])){        		
     		  $operador = strtoupper(addslashes($_POST['operador']));	     
-		      $op->edit($operador,$id);
+              $status = addslashes($_POST['status']);        
+		      $op->edit($operador,$status,$id);
         		 header("Location:". BASE_URL.'/operador');
         	}
         	

@@ -107,10 +107,11 @@ class Records extends Model{
 
 	}
 
-	public function edit($id,$data_sr,$hora_sr,$colab_dev,$obs,$hora_int_sai,$hora_int_en){		
+	public function edit($id,$hora_er,$data_sr,$hora_sr,$colab_dev,$obs,$hora_int_sai,$hora_int_en){		
 		if(isset($colab_dev) && !empty($colab_dev)){			
-			$sql = "UPDATE registros SET data_sr = :data_sr, hora_sr = :hora_sr, colab_dev = :colab_dev, flag = '2' WHERE id = :id";
+			$sql = "UPDATE registros SET hora_er = :hora_er,data_sr = :data_sr, hora_sr = :hora_sr, colab_dev = :colab_dev, flag = '2' WHERE id = :id";
 			$stmt = $this->db->prepare($sql);
+			$stmt->bindValue(":hora_er" , $hora_er);
 			$stmt->bindValue(":data_sr" , $data_sr);
 			$stmt->bindValue(":hora_sr" , $hora_sr);
 			$stmt->bindValue(":colab_dev" , $colab_dev);
@@ -119,8 +120,9 @@ class Records extends Model{
 		}
 		else {
 			if(isset($hora_sr) && !empty($hora_sr)){
-				$sql = "UPDATE registros SET data_sr = :data_sr, hora_sr = :hora_sr, obs = :obs, hr_int_sai = :hr_int_sai, hr_int_en = :hr_int_en, flag = '2' WHERE id = :id";
+				$sql = "UPDATE registros SET hora_er = :hora_er,data_sr = :data_sr, hora_sr = :hora_sr, obs = :obs, hr_int_sai = :hr_int_sai, hr_int_en = :hr_int_en, flag = '2' WHERE id = :id";
 				$stmt = $this->db->prepare($sql);
+				$stmt->bindValue(":hora_er" , $hora_er);
 				$stmt->bindValue(":data_sr" , $data_sr);
 				$stmt->bindValue(":hora_sr" , $hora_sr);
 				$stmt->bindValue(":hr_int_sai" , $hora_int_sai);
@@ -129,8 +131,9 @@ class Records extends Model{
 				$stmt->bindValue(":id" , $id);	
 			}
 			else {				
-				$sql = "UPDATE registros SET data_sr = :data_sr, obs = :obs, hr_int_sai = :hr_int_sai, hr_int_en = :hr_int_en WHERE id = :id";
+				$sql = "UPDATE registros SET hora_er = :hora_er,data_sr = :data_sr, obs = :obs, hr_int_sai = :hr_int_sai, hr_int_en = :hr_int_en WHERE id = :id";
 				$stmt = $this->db->prepare($sql);
+				$stmt->bindValue(":hora_er" , $hora_er);
 				$stmt->bindValue(":data_sr" , $data_sr);				
 				$stmt->bindValue(":hr_int_sai" , $hora_int_sai);
 				$stmt->bindValue(":hr_int_en" , $hora_int_en);

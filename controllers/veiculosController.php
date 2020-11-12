@@ -20,21 +20,8 @@ class VeiculosController extends Controller {
         $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu,$this->card);   
         if ($this->user->hasPermission('veiculos_view')) { 
         	$v = new Veiculos();
-        	$offset = 0; 
-
-        	//questão com paginação
-            $data['p'] = 1;
-            if (isset($_GET['p']) && !empty($_GET['p'])) {
-                $data['p'] = intval($_GET['p']);
-                if ($data['p'] == 0) {
-                    $data['p'] = 1;
-            	}
-        	}
-            $offset = (10 * ($data['p'] - 1));
-
-            $data['veiculos_list'] = $v->getList($offset);
-            $data['veiculos_count'] = $v->getCount();
-            $data['p_count'] = ceil($data['veiculos_count'] / 10); //sempre arredonda pra cima
+        	
+            $data['veiculos_list'] = $v->getList();
 
             $this->loadTemplate('veiculos', $data);
         } 

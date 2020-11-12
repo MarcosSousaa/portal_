@@ -59,7 +59,7 @@
                     <option value="0" selected="">Não</option>                
                 </select>          
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="placa-reg">Placa</label>
                 <input type="text" id="placa-reg" placeholder="informe a placa" class="form-control placa" name="">
                 <span class="errorMsgPlaca"></span>
@@ -70,7 +70,7 @@
                 <input type="text" id="nome-reg" class="form-control" disabled>
                 <span class="errorMsgMot"></span>
             </div> 
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="rg-entrada">RG Motorista</label>
                 <input type="text"  id="rg-entrada" name="rg-entrada" disabled class="form-control">
                 <span class="errorMsgRG"></span>
@@ -115,6 +115,7 @@
             </div>              
         </section>       
     </div>
+    <br><br>
     <div class="form-group col-md-6">
         <label for="obs_reg" id="lbl_reg">Observações</label>
         <textarea  class="form-control" rows="5" name="obs_reg"  id="obs_reg" style="text-align:left;"></textarea>

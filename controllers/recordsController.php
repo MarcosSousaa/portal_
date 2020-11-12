@@ -141,6 +141,7 @@ class RecordsController extends Controller {
         if ($this->user->hasPermission('records_add')) {
             $records = new Records();
             if (isset($_POST['data_sr']) && !empty($_POST['data_sr'])) {
+                $hora_er = addslashes($_POST['hora_er']);
                 $data_sr = addslashes($_POST['data_sr']);
                 $hora_sr = addslashes($_POST['hora_sr']);
                 $data_sr = str_replace("/", "-", $data_sr);                
@@ -148,13 +149,13 @@ class RecordsController extends Controller {
                 $data_sr = date('Y-m-d', strtotime($data_sr));
                 if(isset($_POST['colab_dev']) && !empty($_POST['colab_dev'])){
                     $colab_dev = addslashes($_POST['colab_dev']);
-                    $records->edit($id,$data_sr,$hora_sr,$colab_dev,$obs,null,null);                                  
+                    $records->edit($id,$hora_er,$data_sr,$hora_sr,$colab_dev,$obs,null,null);                                  
                 }
                 else {
                     $hora_int_sai = addslashes($_POST['hora_int_sai']);
                     $hora_int_en = addslashes($_POST['hora_int_en']);
                     
-                    $records->edit($id,$data_sr,$hora_sr,null,$obs,$hora_int_sai,$hora_int_en);    
+                    $records->edit($id,$hora_er,$data_sr,$hora_sr,null,$obs,$hora_int_sai,$hora_int_en);    
                     
                 }
                 

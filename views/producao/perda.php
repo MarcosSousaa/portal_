@@ -102,7 +102,7 @@
 </div>
 <hr>
 
-<table width="100%" class="table table-striped paginated">
+<table class="table table-striped table-bordered display nowrap" id="tabelaPerd" style="width: 100%;">
     <thead>
         <tr>
             <th>Data</th>
@@ -135,6 +135,7 @@
                 </td>                
         </tr>
     <?php endforeach; ?>
-    </tbody>
+    </tbody>    
 </table>
+<script type="text/javascript" src="<?= BASE_URL ?>/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/script_producao.js"></script>

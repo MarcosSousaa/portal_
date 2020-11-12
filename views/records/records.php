@@ -23,6 +23,7 @@ case 'COMPRAS' :
             </div>
             &nbsp;&nbsp;&nbsp;
             <div class="form-group col-xs-4">
+                <label>Tipo</label>
                 <select name="p_registro" id="p_registro" class="form-control">            
                     <option disabled="" selected>Escolha o tipo</option>            
                     <option value="1">Retira - Recebimento de Mat.</option>
@@ -35,7 +36,7 @@ case 'COMPRAS' :
 <div class="tabContentRegistros">    
     <div class="tabBodyRegistros">
         <h3 style="text-align:center; color:blue;">Retira / Recebimento Mat.</h3>
-        <table width="100%" class="table table-striped paginated">
+        <table classs="table table-striped table-bordered display nowrap" id="tabelaRecebComp" style="width: 100%;">
             <thead>
                 <tr>        
                     <th>Data-Entrada</th>                    
@@ -58,15 +59,15 @@ case 'COMPRAS' :
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['obs'];?></td> 
                         <?php if($r['flag'] == '1'){ 
                             echo '<td>                                            
-                                    <a class="btn btn-primary" href="'.BASE_URL .'/records/view/'. $r['id'] .'"><i class=" fa fa-eye"></i></a>
+                                    <a class="btn btn-primary" href="'.BASE_URL .'/records/view/'. $r['id'] .'"><i class="fa fa-eye"></i></a>
                                     <a class="btn btn-warning" href="'.BASE_URL .'/records/edit/'. $r['id'] .'"><i class="fa fa-edit"></i></a>
                                     </td>';
                         }else{
                             if(isset($records_edit) && !empty($records_edit)){
-                                echo '<td>
-                                <a class="btn btn-primary" href="'.BASE_URL .'/records/view/'. $r['id'] .'"><i class="fa fa-eye></i>"</a>
-                                <a class="btn btn-warning" href="'.BASE_URL .'/records/edit/'. $r['id'] .'"><i class=" fa fa-edit></i>"</a>
-                                </td>';     
+                                 echo '<td>                                            
+                                    <a class="btn btn-primary" href="'.BASE_URL .'/records/view/'. $r['id'] .'"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-warning" href="'.BASE_URL .'/records/edit/'. $r['id'] .'"><i class="fa fa-edit"></i></a>
+                                    </td>';
                             }else {
                                 echo '<td>                            
                                 <a class="btn btn-primary" href="'.BASE_URL .'/records/view/'. $r['id'] .'"><i class="fa fa-eye"></i></a></td>';
@@ -118,7 +119,7 @@ case 'COMPRAS' :
 <div class="tabContentRegistros">    
     <div class="tabBodyRegistros">
         <h2 style="text-align:center; color:blue;">Controle - Chaves</h2>
-        <table width="100%" class="table table-striped paginated">
+        <table classs="table table-striped table-bordered display nowrap" id="tabelaControlChave" style="width: 100%;">
             <thead>
                 <tr>        
                     <th>Data-Retirada</th>                                    
@@ -140,10 +141,10 @@ case 'COMPRAS' :
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['cod'];?></td>
                         <td style="<?php echo ($r['flag'] == '1' ? "color: red; font-weight: bold;":"color: green; font-weight: bold;")?>"><?= $r['local'];?></td> 
                         <?php if($r['flag'] == '1'){                           
-                                echo '<td>        
+                                 echo '<td>
                                 <a class="btn btn-primary" href="'.BASE_URL .'/records/view/'. $r['id'] .'"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-warning" href="'.BASE_URL .'/records/edit/'. $r['id'] .'"><i class="fa fa-edit"></i></a>
-                                </td>';                            
+                                </td>';                   
                         }else{
                             if(isset($records_edit) && !empty($records_edit)){
                                 echo '<td>
@@ -164,7 +165,7 @@ case 'COMPRAS' :
 <?php if(isset($records_list) && !empty($records_list) && $records_list['0']['tipo'] == '1'): ?>
     <div class="tabBodyRegistros">
         <h2 style="text-align:center; color:blue;">Retira / Recebimento Mat.</h2>
-        <table width="100%" class="table table-striped paginated">
+        <table classs="table table-striped table-bordered display nowrap" id="tabelaReceb" style="width: 100%;">
             <thead>
                 <tr>        
                     <th>Data-Entrada</th>                    
@@ -198,7 +199,8 @@ case 'COMPRAS' :
                                 </td>';     
                             }else {
                                 echo '<td>                            
-                                <a class="btn btn-primary" href="'.BASE_URL .'/records/view/'. $r['id'] .'"><i class="fa fa-eye></i>"</a></td>';
+                                <a class="btn btn-primary" href="'.BASE_URL .'/records/view/'. $r['id'] .'"><i class="fa fa-eye"></i></a></td>';
+
                             }
                        } ?>                              
                     </tr>
@@ -210,7 +212,7 @@ case 'COMPRAS' :
 <?php if(isset($records_list) && !empty($records_list) && $records_list['0']['tipo'] == '2'): ?>
     <div class="tabBodyRegistros">
         <h2 style="text-align:center;  color:blue;">Entrada - Veículos</h2>
-        <table width="100%" class="table table-striped paginated">
+        <table classs="table table-striped table-bordered display nowrap" id="tabelaServicos" style="width: 100%;">
             <thead>
                 <tr>        
                     <th>Data-Entrada</th>

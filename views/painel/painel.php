@@ -1,6 +1,6 @@
 <h3><center>Menu</center></h3>
 <hr>
-<table width="100%" class="table table-striped paginated">
+<table classs="table table-striped table-bordered display nowrap" id="tabelaMenu" style="width: 100%;">
     <thead>
         <tr>        
             <th>Classe CSS do menu</th>        

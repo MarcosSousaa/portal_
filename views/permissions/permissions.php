@@ -19,7 +19,7 @@
     <?php endif; ?>
     <hr>
     <h3><center>Tabela</center></h3>
-    <table width="100%" class="table table-striped paginated">
+    <table classs="table table-striped table-bordered display nowrap" id="tabelaGrupo" style="width: 100%;">
         <thead>
             <tr>
                 <th>Nome do Grupo de Permissões</th>
@@ -46,7 +46,7 @@
     <?php endif; ?>
     <hr>
     <h3><center>Tabela</center></h3>
-    <table width="100%" class="table table-striped paginated">
+    <table classs="table table-striped table-bordered display nowrap" id="tabelaAcesso" style="width: 100%;">
         <thead>
             <tr>
                 <th>Nome da Permissão</th>

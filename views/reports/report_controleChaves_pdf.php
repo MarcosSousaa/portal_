@@ -145,6 +145,10 @@
                     }
                     
                 ]
+            },
+            {
+                extend: 'pageLength',                                
+                
             }]
         }); // ID From dataTable       
 

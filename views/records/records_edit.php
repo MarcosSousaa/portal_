@@ -15,6 +15,10 @@
 <form  method="post">
     <div class="form-row">
         <div class="form-group col-md-3">
+            <label for="">Horario-Retirada</label>
+            <input class="form-control" type="text" name="hora_er" id="hora_er" value="<?=  $records_info['hora_er']?>">    
+        </div>      
+        <div class="form-group col-md-3">
             <label for="">Data Devolução</label>
             <input type="hidden" value="<?php echo $records_info['tipo'] ?>" name="tipo">
             <input type="date" class="form-control" name="data_sr" id="data_sr"  value="<?= $records_info['data_sr'] ? $records_info['data_sr'] : date('Y-m-d');?>">
@@ -41,6 +45,10 @@
 
 <form  method="post">
     <div class="form-row">
+        <div class="form-group col-md-3">
+            <label for="">Horario-Entrada</label><br>        
+            <input type="text" name="hora_er" class="form-control" id="hora_er"  value="<?= $records_info['hora_er'] ?>">     
+        </div>
         <div class="form-group col-md-3">
             <label for="">Data</label><br>        
             <input type="date" name="data_sr" class="form-control" id="data_sr"  value="<?= $records_info['data_sr'] ? $records_info['data_sr'] : date('Y-m-d');?>">     

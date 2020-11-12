@@ -1,8 +1,8 @@
 <h3><center>Veiculos</center></h3>
 
 <a class="btn btn-primary" href="<?= BASE_URL ?>/veiculos/add">Adicionar Veículo</a>
-
-<table width="100%" class="table table-striped paginated">
+<hr>
+<table class="table table-striped table-bordered display nowrap" id="tabelaVeiculos" style="width: 100%;">
     <thead>
         <tr>        
             <th>Tipo</th>

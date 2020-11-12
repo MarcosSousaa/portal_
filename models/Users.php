@@ -7,15 +7,14 @@ class Users extends Model{
 	public function isLogged(){
 		if(isset($_SESSION['ccUser']) && !empty($_SESSION['ccUser'])){
 			return true;
-		}
-
+		}        
 		return false;
 	}
 
 	public function doLogin($user,$pass){
         try{            
-
-            $sql = "SELECT * FROM users WHERE user = :user";                   
+            $user = strtolower($user);
+            $sql = "SELECT * FROM users WHERE user = :user AND status = '1' ";                   
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(":user",$user);             
             $stmt->execute();           
@@ -41,8 +40,8 @@ class Users extends Model{
 	}
     public function consultaUser($user){
         try{            
-
-            $sql = "SELECT pass FROM users WHERE user = :user";                   
+            $user = strtolower($user);
+            $sql = "SELECT pass FROM users WHERE user = :user AND status = '1' ";                   
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(":user",$user);             
             $stmt->execute();           
@@ -147,7 +146,7 @@ class Users extends Model{
     }
     public function getList() {
         $array = array();
-        $sql = "SELECT u.id,u.user, u.name, pg.name as group_name 
+        $sql = "SELECT u.id,u.user, u.name,u.status, pg.name as group_name 
                 FROM users u
                 INNER JOIN groups pg
                 ON u.id_group = pg.id
@@ -163,13 +162,14 @@ class Users extends Model{
     public function add($name, $user,$group) {
         try {
             $name = strtoupper($name);
+            $user = strtolower($user);
             $stmt = $this->db->prepare("SELECT COUNT(*) as c FROM users where user = :user");
             $stmt->bindParam(":user",$user);
             $stmt->execute();
             $row = $stmt->fetch();        
             
             if($row['c'] == '0'){             
-                $sql = $this->db->prepare("INSERT INTO users SET id = UUID(), name = :name, user = :user, id_group = :group");               
+                $sql = $this->db->prepare("INSERT INTO users SET id = UUID(), name = :name, user = :user, id_group = :group, status = '1' ");               
                 $sql->bindValue(":name", $name);
                 $sql->bindValue(":user", $user);                
                 $sql->bindValue(":group", $group);                
@@ -185,12 +185,14 @@ class Users extends Model{
 
         
     }
-    public function edit($name , $group, $id) {
-        $sql = "UPDATE users SET name = :name, id_group = :id_group WHERE id = :id";
+    public function edit($name , $group,$status, $id) {
+        $sql = "UPDATE users SET name = :name, id_group = :id_group, status = :status WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":name", $name);        
         $stmt->bindParam(":id_group", $group);
-        $stmt->bindParam(":id", $id);        
+        $stmt->bindParam(":status", $status);
+        $stmt->bindParam(":id", $id);
+        
         $stmt->execute();
     }
     public function delete($id) {

@@ -46,6 +46,7 @@
              <label>Maquina Limpa</label>  
             <select id="maq" name="maq" class="form-control">
                 <option disabled selected>Escolha uma maquina</option>
+                <option value="">Sem Maquina</option>
                 <option value="EST01" <?= ($limpeza_info['maquina'] == 'EST01') ? 'selected="selected"' : ''; ?>>Estufa e Seladora</option>
                 <option value="EXT01" <?= ($limpeza_info['maquina'] == 'EXT01') ? 'selected="selected"' : ''; ?>>Extrusora 01</option>
                 <option value="EXT02" <?= ($limpeza_info['maquina'] == 'EXT02') ? 'selected="selected"' : ''; ?>>Extrusora 02</option>

@@ -301,13 +301,13 @@ $(document).ready(function(){
     });
 
     var maquinas = {
-        EXT : ['EXT01','EXT02','EXT03','EXT04','EXT05'],
-        ACA : ['REB01','REB02','REB03','REB04','REB05','REB06','REB07','RAC01','RAC02'],
-        DIS : ['REF01','REF02','REF03','REF04','REF05'],
-        MIS : ['GRA01','GRA02','GRA03','MIS01','MIS02','MOI01','MOI02','MOI03','MOI04'],
-        PRA : ['PRA01','PRA02'],
-        IMP : ['IMP01','IMP02'],
-        TUB : ['TUB08','TUB09','TUB10','TUB11','TUB12','TUB13','TUB14','TUB15','TUB16','EST01']
+        EXT : ['','EXT01','EXT02','EXT03','EXT04','EXT05'],
+        ACA : ['','REB01','REB02','REB03','REB04','REB05','REB06','REB07','RAC01','RAC02'],
+        DIS : ['','REF01','REF02','REF03','REF04','REF05'],
+        MIS : ['','GRA01','GRA02','GRA03','MIS01','MIS02','MOI01','MOI02','MOI03','MOI04'],
+        PRA : ['','PRA01','PRA02'],
+        IMP : ['','IMP01','IMP02'],
+        TUB : ['','TUB08','TUB09','TUB10','TUB11','TUB12','TUB13','TUB14','TUB15','TUB16','EST01']
     }
 
     $maquina = $('#maq option');

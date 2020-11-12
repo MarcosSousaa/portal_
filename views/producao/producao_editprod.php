@@ -12,6 +12,29 @@
 	</h5>
 	<div class="form-row">
 		<div class="form-group col-md-3">
+            <label>Extrusora</label>  
+            <select id="extrusora_prod" name="extrusora_prod" class="form-control">
+                <option disabled selected>Escolha uma opção</option>
+                <option value="01" <?= ($producao_info['extrusora'] == '01') ? 'selected="selected"' : ''; ?> >Extrusora 01</option>
+                <option value="02" <?= ($producao_info['extrusora'] == '02') ? 'selected="selected"' : ''; ?>>Extrusora 02</option>
+                <option value="03" <?= ($producao_info['extrusora'] == '03') ? 'selected="selected"' : ''; ?>>Extrusora 03</option>
+                <option value="04" <?= ($producao_info['extrusora'] == '04') ? 'selected="selected"' : ''; ?>>Extrusora 04</option>
+                <option value="05" <?= ($producao_info['extrusora'] == '05') ? 'selected="selected"' : ''; ?>>Extrusora 05</option>
+            </select>
+            <span class="errorMsgExt"></span>    
+        </div>        
+        <div class="form-group col-md-3">
+            <label>Operador</label>
+            <select class="form-control" name="operador">
+            	<?php foreach($operador as $p ) : ?>
+                <option value="<?=$p['id'] ?>" <?= ($producao_info['operador_fk'] == $p['id']) ? 'selected="selected"' : '' ;?>> <?=$p['operador'] ?></option>
+                <?php endforeach; ?>
+            </select>
+            <span class="errorMsgOperador"></span>          
+        </div>
+	</div>
+	<div class="form-row">
+		<div class="form-group col-md-3">
 			<label>Data Produção</label>
 			<input type="date" name="data_prod" required value="<?php echo date('Y-m-d', strtotime($producao_info['data_prod'])); ?>" class="form-control">     
 		</div>
@@ -65,7 +88,7 @@
 			<label>Lote</label>	
 			<input type="text" name="lote" id="lote" value="<?= $producao_info['lote'];?>" class="form-control">
 		</div>
-		<div class="form-group col-md-3">
+		<div class="form-group col-md-1">
 			<label>Rpm</label>	
 			<input type="text" name="rpm" id="rpm" value="<?= $producao_info['rpm'];?>" class="form-control">
 		</div>

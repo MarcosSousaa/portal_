@@ -1,7 +1,8 @@
 <h3><center>Chaves</center></h3>
 
 <a class="btn btn-primary" href="<?= BASE_URL ?>/chaves/add">Adicionar Chaves</a>
-<table width="100%" class="table table-striped paginated">
+<hr>
+<table class="table table-striped table-bordered display nowrap" id="tabelaChave" style="width: 100%;">
     <thead>
         <tr>        
             <th>Codígo da Chave</th>        

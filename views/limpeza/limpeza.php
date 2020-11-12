@@ -22,7 +22,8 @@
         </fieldset>
     </form>    
 </div>
-    <table width="100%" class="table table-striped paginated">
+<hr>
+    <table classs="table table-striped table-bordered display nowrap" id="tabelaLimpeza" style="width: 100%;">
         <thead>
             <tr>        
                 <th width="130">Data</th> 

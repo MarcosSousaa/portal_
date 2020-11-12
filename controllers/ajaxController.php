@@ -43,4 +43,15 @@ class ajaxController extends Controller {
         $data = $operador->getOperador();        
         echo $data;
     }
+
+    /*public function searchMp(){
+        $data = array();
+        $mp = new MatPrima();					
+		if(isset($_GET['q']) && !empty($_GET['q'])){
+			$q = strtoupper(addslashes($_GET['q']));			
+			$data = $mp->searchMatPrimaByName($q);			
+		}		
+		echo json_encode($data);
+    }
+    */
 }

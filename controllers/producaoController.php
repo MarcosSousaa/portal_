@@ -29,6 +29,7 @@ class producaoController extends Controller {
             $p = new Producao();
             $data['producao_add'] = $this->user->hasPermission('producao_add');
             $data['producao_addacab'] = $this->user->hasPermission('producao_addacab');
+
             if($_POST['ext'] == '00'){
                 unset($_SESSION['ext']);        
                 $_POST['ext'] = null;                                                
@@ -51,8 +52,8 @@ class producaoController extends Controller {
                 $_SESSION['data1'] = date('Y-m-d');
                 $_SESSION['data2'] = date('Y-m-d');
                 $data['producao_list'] = $p->getListProducao($_SESSION['data1'],$_SESSION['data2'],$_SESSION['ext'],$_SESSION['turno']);
-            }                       
-                        
+            }                                  
+            $data['user_name'] = $this->user->getName();                     
             $this->loadTemplate('producao', $data);
         } else {            
             header("Location: " . BASE_URL);
@@ -106,8 +107,11 @@ class producaoController extends Controller {
         );      
         if($this->user->hasPermission('producao_edit')) {
             $p = new Producao();
+            $op = new Operador();
             if(isset($_POST['data_prod']) && !empty($_POST['data_prod'])){
-                $data_prod = addslashes($_POST['data_prod']);                
+                $data_prod = addslashes($_POST['data_prod']);             
+                $extrusora = addslashes($_POST['extrusora_prod']);                
+                $operador = addslashes($_POST['operador']);   
                 $hrini = addslashes($_POST['hrini']);
                 $aprovacaoini = addslashes($_POST['aprovacaoini']);
                 $pedido = addslashes($_POST['pedido']);
@@ -126,13 +130,16 @@ class producaoController extends Controller {
                 $sobrabob = addslashes($_POST['sobrabob']);
                 $sobrabobkg = addslashes($_POST['sobrabobkg']); 
                 $user = $this->user->getId();               
-                $p->updateProducao($data_prod,$hrini,$aprovacaoini,$pedido,$ordem,$lote,$rpm,$peso,$qtd,$total,$larg,$esp,$metrag,$hrfim,$data_f,$aprovacaofim,$sobrabob,$sobrabobkg,$user,$id);
+                $p->updateProducao($data_prod,$extrusora,$operador,$hrini,$aprovacaoini,$pedido,$ordem,$lote,$rpm,$peso,$qtd,$total,$larg,$esp,$metrag,$hrfim,$data_f,$aprovacaofim,$sobrabob,$sobrabobkg,$user,$id);
                 header("Location: " . BASE_URL . "/producao");
                 exit();
             }            
-            $data['producao_info'] = $p->getInfoProducao($id);            
-            $data['menu_list'] = $this->menu->getList();             
-            $this->loadTemplate('producao_editprod', $data);
+            $data['producao_info'] = $p->getInfoProducao($id); 
+            $data['operador'] = $op->getList();           
+            $data['menu_list'] = $this->menu->getList();              
+                                    
+            $this->loadTemplate('producao_editprod', $data);    
+                                
         } else {
             header("Location: " . BASE_URL);
         }
@@ -370,7 +377,10 @@ class producaoController extends Controller {
         );
         if($this->user->hasPermission('producao_edit')) {
             $p = new Producao();
-            if(isset($_POST['acabamento']) && !empty($_POST['acabamento'])){
+            if(isset($_POST['acabamento']) && !empty($_POST['acabamento'])){                
+                $departamento = addslashes($_POST['dep']);                
+                $maquina = addslashes($_POST['maq']);
+                $produto = addslashes($_POST['prod']);          
                 $apara = addslashes($_POST['apara']);
                 $refile = addslashes($_POST['refile']);                
                 $borra = addslashes($_POST['borra']);
@@ -378,13 +388,14 @@ class producaoController extends Controller {
                 $qtdparada = addslashes($_POST['qtdparada']);
                 $tempoparada = addslashes($_POST['tempoparada']);
                 $oc = $_POST['oc'];                
-                $p->updatePerda($apara,$refile,$borra,$acabamento,$qtdparada,$tempoparada,$oc,$id);                
+                $p->updatePerda($departamento,$maquina,$produto,$apara,$refile,$borra,$acabamento,$qtdparada,$tempoparada,$oc,$id);                
                 header("Location: " . BASE_URL . "/producao/perda");
                 exit();
             }
 
             $data['perda_info'] = $p->getInfoPerda($id);            
-            $data['menu_list'] = $this->menu->getList();             
+            $data['menu_list'] = $this->menu->getList();
+            
             $this->loadTemplate('producao_editperda', $data);
         } else {
             header("Location: " . BASE_URL);

@@ -31,6 +31,22 @@ class Operador extends Model{
 		}
 	}
 
+	public function getName($name){
+		try{
+	 		$array = array();
+        	$sql = "SELECT operador FROM operador WHERE operador = :name";
+        	$stmt = $this->db->prepare($sql);
+        	$stmt->bindParam(":name", $name);
+        	$stmt->execute();
+        	if($stmt->rowCount() > 0){
+            	$array =  $stmt->fetch();
+        	}
+        	return $array;
+		}catch(Exception $e){
+			echo $e->getMessage();
+		}
+	}
+
 	public function getCount(){
 		try{
 	 		$sql = "SELECT COUNT(*) as c FROM operador";
@@ -46,7 +62,7 @@ class Operador extends Model{
 
 	public function add($operador){
 		try{			
-			$sql = "INSERT INTO operador SET operador = :operador";
+			$sql = "INSERT INTO operador SET operador = :operador, status = '1', timestamp = NOW()";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(":operador", $operador);
 			$stmt->execute();
@@ -56,11 +72,12 @@ class Operador extends Model{
 		}
 	}
 
-	public function edit($operador,$id){
+	public function edit($operador,$status,$id){
 		try{			
-			$sql = "UPDATE operador SET operador = :operador WHERE id = :id";
+			$sql = "UPDATE operador SET operador = :operador, status = :status, timestamp = NOW() WHERE id = :id";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(":operador", $operador);
+			$stmt->bindParam(":status", $status);	
 			$stmt->bindParam(":id", $id);
 			$stmt->execute();
 		}catch(Exception $e){
@@ -83,7 +100,7 @@ class Operador extends Model{
 
 	public function getOperador(){
 		$data = "";
-		$sql = "SELECT id,operador FROM operador order by operador";
+		$sql = "SELECT id,operador FROM operador WHERE status = '1' order by operador";
 		$stmt = $this->db->prepare($sql);
 		$stmt->execute();
 		if($stmt->rowCount() > 0){

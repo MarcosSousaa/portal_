@@ -1,3 +1,4 @@
+
 <style type="text/css">
     input[type="date"]{
         width: 350px;
@@ -47,43 +48,62 @@
             </div>
         </div>
         <div class="row">
-            <button id="btnPesquisaFiltro" class="btn btn-primary">Pesquisar</button>       
-        </div>                                                   
-            
-        </fieldset>
+            <button id="btnPesquisaFiltro" class="btn btn-primary">Pesquisar</button>      
+             
+        </div>                                                                       
     </form>
 </div>
-<table width="100%" class="table table-striped paginated">
+<hr>
+    <?php if(isset($error) && !empty($error)) :?>
+    <div class="erro" style="color:white;font-weight: bold;font-size: 17px;">       
+        <div class="alert alert-warning" role="alert" id="error">
+            <?php echo $error; ?>
+        </div>
+    </div>
+
+
+    <?php endif; ?>
+<table class="table table-striped table-bordered display nowrap" id="tabelaProd" style="width: 100%;">
     <thead>
-        <tr>
-            <th>Data</th>
+        <tr>            
             <th>Inicio</th>
             <th>Extrusora</th>
             <th>Turno</th>
-            <th>Nome Operador</th>
-            <th>Numero Pedido</th>
-            <th>Total Produzido KG</th>
+            <th>Operador</th>
+            <th>Nº Pedido</th>
+            <th>Produzido KG</th>
             <th>Término</th>
             <th width="120">Ações</th>
         </tr>    
     </thead>
     <tbody>
         <?php foreach ($producao_list as $pl): ?>
-            <tr>
-                <td><?php echo date('d/m/Y', strtotime($pl['data_prod']));  ?></td>
-                <td><?= $pl['hri']; ?></td>                    
+            <tr>                
+                <td><?= date('d/m/Y', strtotime($pl['data_prod'])). ' - '.$pl['hri']; ?></td>                    
                 <td><?= $pl['extrusora'] ?></td>
                 <td><?php echo $turno[$pl['turno']]; ?></td>
                 <td><?= $pl['operador'] ?></td>
                 <td><?= $pl['pedido'] ?></td>
                 <td><?= number_format($pl['totalbob'], 2, ',', '.'); ?></td>
-                <td><?= $pl['hrf']; ?></td>                    
+                <td><?= date('d/m/Y', strtotime($pl['data_f'])). ' - '. $pl['hrf']; ?></td>                    
                 <td>
                     <a class="btn btn-primary" href="<?= BASE_URL ?>/producao/view_prod/<?= $pl['id'] ?>"><i class="fa fa-eye"></i></a>
+                    <?php if($pl['operador'] == $user_name){
+
+                     ?>
                     <a class="btn btn-warning" href="<?= BASE_URL ?>/producao/edit_prod/<?= $pl['id'] ?>"><i class="fa fa-edit"></i></a>
+                    <?php }else{}
+                     ?>
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="5" style="text-align:right">Total:</th>
+            <th></th>
+        </tr>
+    </tfoot>
 </table>
+<script type="text/javascript" src="<?= BASE_URL ?>/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/script_producao.js"></script>

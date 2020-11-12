@@ -117,7 +117,7 @@ class Producao extends Model{
 		}		
 	}
 
-	public function updateProducao($data_prod,$hrini,$aprovacaoini,$pedido,$ordem,$lote,$rpm,$peso,$qtd,$total,$larg,$esp,$metrag,$hrfim,$data_f,$aprovacaofim,$sobrabob,$sobrabobkg,$user,$id){
+	public function updateProducao($data_prod,$extrusora,$operador,$hrini,$aprovacaoini,$pedido,$ordem,$lote,$rpm,$peso,$qtd,$total,$larg,$esp,$metrag,$hrfim,$data_f,$aprovacaofim,$sobrabob,$sobrabobkg,$user,$id){
 		try {					
 			$peso = str_replace(".", ",", $peso);
 			$peso = str_replace(",", ".", $peso);			
@@ -131,10 +131,11 @@ class Producao extends Model{
 			$sobrabob = (isset($sobrabob) && !empty($sobrabob)) ? $sobrabob : '0'; 
 			$sobrabobkg = (isset($sobrabobkg) && !empty($sobrabobkg)) ? $sobrabobkg : '0.000';
 			$sobrabobkg = str_replace(",", ".", $sobrabobkg); 
-			$sql = "UPDATE producao SET data_prod = :data_prod, hri = :hrini, situini = :aprovacaoini, pedido = :pedido, ordem = :ordem, lote = :lote, rpm = :rpm, pesobob = :peso, qtdbob = :qtd, totalbob = :total,larg = :larg, esp = :esp,metrag = :metrag, perdabob = :perdabob, perdakg = :perdakg, hrf = :hrfim, data_f = :data_f, situfim = :aprovacaofim, TIMESTAMP = NOW(), user_edit = :user WHERE id = :id;";
-			$user = md5($user);
+			$sql = "UPDATE producao SET data_prod = :data_prod, extrusora = :extrusora, operador_fk = :operador, hri = :hrini, situini = :aprovacaoini, pedido = :pedido, ordem = :ordem, lote = :lote, rpm = :rpm, pesobob = :peso, qtdbob = :qtd, totalbob = :total,larg = :larg, esp = :esp,metrag = :metrag, perdabob = :perdabob, perdakg = :perdakg, hrf = :hrfim, data_f = :data_f, situfim = :aprovacaofim, TIMESTAMP = NOW(), user_edit = :user WHERE id = :id;";
 			$stmt = $this->db->prepare($sql);			
-			$stmt->bindParam(":data_prod", $data_prod);						
+			$stmt->bindParam(":data_prod", $data_prod);	
+			$stmt->bindParam(":extrusora", $extrusora);				
+			$stmt->bindParam(":operador", $operador);									
 			$stmt->bindParam(":hrini", $hrini);			
 			$stmt->bindParam(":aprovacaoini", $aprovacaoini);			
 			$stmt->bindParam(":pedido", $pedido);			
@@ -153,7 +154,7 @@ class Producao extends Model{
 			$stmt->bindParam(":perdabob", $sobrabob);			
 			$stmt->bindParam(":perdakg", $sobrabobkg);
 			$stmt->bindParam(":user", $user);						
-			$stmt->bindParam(":id", $id);							
+			$stmt->bindParam(":id", $id);								
 			$stmt->execute();						
 		} catch (Exception $e) {
 			echo $e->getMessage();
@@ -233,8 +234,11 @@ class Producao extends Model{
 			$refile = (isset($refile) && !empty($refile)) ? $refile : '0.000'; 
 			$borra = (isset($borra) && !empty($borra)) ? $borra : '0.000'; 
 			$acabamento = (isset($acabamento) && !empty($acabamento)) ? $acabamento : '0.000'; 
+			$apara = str_replace(".", "", $apara);
 			$apara = str_replace(",", ".", $apara);
+			$refile = str_replace(".", "", $refile);
 			$refile = str_replace(",", ".", $refile);
+			$borra = str_replace(".", "", $borra);
 			$borra = str_replace(",", ".", $borra);
 			$acabamento = str_replace(",", ".", $acabamento);
 			$maquina = (isset($maquina) && !empty($maquina)) ? $maquina : ''; 
@@ -263,17 +267,23 @@ class Producao extends Model{
 		}		
 	}
 
-	public function updatePerda($apara,$refile,$borra,$acabamento,$qtdparada,$tempoparada,$oc,$id){
+	public function updatePerda($departamento,$maquina,$produto,$apara,$refile,$borra,$acabamento,$qtdparada,$tempoparada,$oc,$id){
 		try {			
 			$oc = (isset($oc) && !empty($oc)) ? implode(",", $oc) : '';	
-			$qtdparada = (isset($qtdparada) && !empty($qtdparada)) ? $qtdparada : '';
+			
+			$qtdparada = (isset($qtdparada) && empty($qtdparada)) ? $qtdparada : 'null';
+			echo $qtdparada.'<br>';	
+								
 			$tempoparada = (isset($tempoparada) && !empty($tempoparada)) ? $tempoparada : '';
 			$apara = str_replace(",", ".", $apara);
 			$refile = str_replace(",", ".", $refile);
 			$borra = str_replace(",", ".", $borra);
 			$acabamento = str_replace(",", ".", $acabamento);						
-			$sql = "UPDATE perda SET apara = :apara, refile = :refile, borra = :borra, acabamento = :acabamento, qtdparada = :qtdparada, tempoparada = :tempoparada, oc = :oc, TIMESTAMP = NOW() WHERE id = :id;";
-			$stmt = $this->db->prepare($sql);
+			$sql = "UPDATE perda SET departamento = :departamento, maquina = :maquina, produto = :produto,apara = :apara, refile = :refile, borra = :borra, acabamento = :acabamento, qtdparada = :qtdparada, tempoparada = :tempoparada, oc = :oc, TIMESTAMP = NOW() WHERE id = :id;";
+			$stmt = $this->db->prepare($sql);			
+			$stmt->bindParam(":departamento", $departamento);
+			$stmt->bindParam(":maquina", $maquina);
+			$stmt->bindParam(":produto", $produto);
 			$stmt->bindParam(":apara", $apara);
 			$stmt->bindParam(":refile", $refile);
 			$stmt->bindParam(":borra", $borra);
@@ -458,7 +468,7 @@ class Producao extends Model{
 						DATE_FORMAT(data_perd, '%Y-%m-%d') as DATA_PERD,
     					SUM(perda.apara + perda.refile + perda.borra + perda.acabamento) AS PERDA
 					FROM perda 
-					WHERE data_perd BETWEEN :data1 AND :data2
+					WHERE data_perd BETWEEN :data1 AND :data2 AND perda.departamento = 'EXT'
 					GROUP BY DATE_FORMAT(data_perd, '%Y-%m-%d')";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(":data1", $data1);
@@ -509,11 +519,11 @@ class Producao extends Model{
 			$array = array();
 
 			$sql = "SELECT 
-						perda.extrusora AS EXTRUSORA,
+						perda.maquina AS EXTRUSORA,
     					SUM(perda.apara + perda.refile + perda.borra) AS PERDA
 					FROM perda 
-					WHERE perda.data_perd BETWEEN :data1 AND :data2
-					GROUP BY perda.extrusora";
+					WHERE perda.data_perd BETWEEN :data1 AND :data2 AND perda.departamento = 'EXT'
+					GROUP BY perda.maquina";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(":data1", $data1);
 			$stmt->bindParam(":data2", $data2);			
@@ -566,7 +576,7 @@ class Producao extends Model{
 						perda.turno AS TURNO,
     					SUM(perda.apara + perda.refile + perda.borra + perda.acabamento) AS PERDA
 					FROM perda 
-					WHERE perda.data_perd BETWEEN :data1 AND :data2
+					WHERE perda.data_perd BETWEEN :data1 AND :data2 AND perda.departamento = 'EXT'
 					GROUP BY perda.turno";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(":data1", $data1);
@@ -625,7 +635,7 @@ class Producao extends Model{
 						DATE_FORMAT(data_perd, '%Y-%m-%d') as DATA_PERD,
     					SUM(perda.apara) AS APARA
 					FROM perda 
-					WHERE data_perd BETWEEN :data1 AND :data2
+					WHERE data_perd BETWEEN :data1 AND :data2 AND perda.departamento = 'EXT'
 					GROUP BY DATE_FORMAT(data_perd, '%Y-%m-%d')";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(":data1", $data1);
@@ -656,7 +666,7 @@ class Producao extends Model{
 						DATE_FORMAT(data_perd, '%Y-%m-%d') as DATA_PERD,
     					SUM(perda.refile) AS REFILE
 					FROM perda 
-					WHERE data_perd BETWEEN :data1 AND :data2
+					WHERE data_perd BETWEEN :data1 AND :data2 AND perda.departamento = 'EXT'
 					GROUP BY DATE_FORMAT(data_perd, '%Y-%m-%d')";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(":data1", $data1);
@@ -687,7 +697,7 @@ class Producao extends Model{
 						DATE_FORMAT(data_perd, '%Y-%m-%d') as DATA_PERD,
     					SUM(perda.borra) AS BORRA
 					FROM perda 
-					WHERE data_perd BETWEEN :data1 AND :data2
+					WHERE data_perd BETWEEN :data1 AND :data2 AND perda.departamento = 'EXT'
 					GROUP BY DATE_FORMAT(data_perd, '%Y-%m-%d')";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(":data1", $data1);
@@ -718,7 +728,7 @@ class Producao extends Model{
 						DATE_FORMAT(data_perd, '%Y-%m-%d') as DATA_PERD,
     					SUM(perda.acabamento) AS ACABAMENTO
 					FROM perda 
-					WHERE data_perd BETWEEN :data1 AND :data2
+					WHERE data_perd BETWEEN :data1 AND :data2 AND perda.departamento = 'EXT'
 					GROUP BY DATE_FORMAT(data_perd, '%Y-%m-%d')";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(":data1", $data1);

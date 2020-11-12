@@ -18,7 +18,13 @@ class UsersController extends Controller {
     public function index(){
         $data = array();        
         // informações para o template        
-        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu,$this->card);              
+        $data['info_template'] = Utilities::loadTemplateBase($this->user,$this->menu,$this->card); 
+        $data['status'] = array(
+            '0' => 'Inativo',
+            '1' => 'Ativo'
+
+        );     
+        $data['usuario_edit'] = $this->user->hasPermission('usuario_edit');    
         if ($this->user->hasPermission('usuario_view')) {            
             $data['users_list'] = $this->user->getList();
             $this->loadTemplate('users', $data);
@@ -36,7 +42,7 @@ class UsersController extends Controller {
             if (isset($_POST['user']) && !empty($_POST['user'])) {                
                 $user = addslashes(filter_input(INPUT_POST, 'user'));
                 $name = addslashes(filter_input(INPUT_POST, 'name'));                
-                $group = addslashes(filter_input(INPUT_POST, 'group'));
+                $group = addslashes(filter_input(INPUT_POST, 'group'));                
                 $retorno = $this->user->add($name, $user, $group);
                 if ($retorno) {
                     header("Location: " . BASE_URL . "/users");
@@ -60,9 +66,10 @@ class UsersController extends Controller {
             $data['user_info'] = $this->user->getInfo($id);
             $data['group_list'] = $p->getGroupList();
             if (isset($_POST['group']) && !empty($_POST['group'])) {
-                $name = addslashes(filter_input(INPUT_POST, 'name'));                
-                $group = addslashes(filter_input(INPUT_POST, 'group'));
-                $this->user->edit($name, $turno, $group, $id);
+                $name = addslashes(filter_input(INPUT_POST, 'name'));  
+                $status = addslashes(filter_input(INPUT_POST, 'status'));              
+                $group = addslashes(filter_input(INPUT_POST, 'group'));                
+                $this->user->edit($name, $group, $status, $id);
                 header("Location: " . BASE_URL . "/users");
                 exit();
             }

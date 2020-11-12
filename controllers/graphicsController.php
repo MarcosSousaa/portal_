@@ -62,15 +62,16 @@ class graphicsController extends Controller {
                     '002' => 'TARDE',
                     '003' => 'NOITE'
                 );
-                $data['extrusora'] = array(
-                    '01' => '01',
-                    '02' => '02',
-                    '03' => '03',
-                    '04' => '04',
-                    '05' => '05'
+                $data['maquina'] = array(
+                    'EXT01' => '01',
+                    'EXT02' => '02',
+                    'EXT03' => '03',
+                    'EXT04' => '04',
+                    'EXT05' => '05'
                 );                
                 /* GERACAO DADOS DO GRAFICO */           
                 $data['total_producao'] = $p->totalProd($data1,$data2);
+                
                 $data['total_perda'] = $p->totalPerda($data1,$data2);
                 $data['total_producao_ext'] = $p->totalProdExt($data1,$data2);
                 $data['total_perda_ext'] = $p->totalPerdaExt($data1,$data2);

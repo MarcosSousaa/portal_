@@ -24,6 +24,11 @@
                 <?php endforeach; ?>
             </select>    
         </div>
+         <div class="form-group col-md-4">
+            <label for="turno">Status</label>
+            <input type="radio" name="status" value="1" <?= ($user_info['status'] == '1') ? 'checked="checked"' : '' ?> />Ativo
+            <input type="radio" name="status" value="0" <?= ($user_info['status'] == '0') ? 'checked="checked"' : '' ?> />Inativo
+        </div>
     </div>    
     <input type="submit" value="Editar" class="btn btn-primary">
     <a href="<?php echo BASE_URL;?>/users" class="btn btn-info">VOLTAR</a>

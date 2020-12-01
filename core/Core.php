@@ -39,8 +39,7 @@ class Core{
 		$url = end($url);		
 		$params = array();		
 		if(!empty($url)){
-			echo 'ta no if';
-			exit;
+			
 			$url = explode('/',$url);
 			array_shift($url);
 			$currentController = $url[0].'Controller';

@@ -53,7 +53,8 @@
             <label for="reprovacaoini" class="radio">
                 <input type="radio" name="aprovacaoini" id="reprovacaoini" value="2">
                 Reprovado    
-            </label>                
+            </label>     
+            <span class="errorMsgSituIni"></span>              
         </div>        
     </div>
     <div class="form-row">

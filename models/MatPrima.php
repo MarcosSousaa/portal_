@@ -77,17 +77,36 @@ class MatPrima extends Model{
 	}
 
 	public function searchMatPrimaByName($name){
-		$array = array();
-		$sql = $this->db->prepare("SELECT descricao, fornecedor, id FROM matprima WHERE descricao LIKE :name LIMIT 10");
-		$n = "%".$name."%";
-		$sql->bindValue(":name",$n);	
-		echo 'ta aqui';
-		exit;			
-		$sql->execute();		
-		if($sql->rowCount() > 0){
-			$array = $sql->fetchAll();
+		/*
+		try{
+			$resultado = null;			
+			$sql = "SELECT descricao,fornecedor,id FROM matprima WHERE descricao LIKE '".$name."%' AND status = 1";
+			$stmt = $this->db->prepare($sql);
+			$stmt->execute();
+			if($stmt->rowCount() > 0){
+				$resultado = $stmt->fetchAll();
+			}
+			else {
+				$resultado = null;
+			}
+			return $resultado;
+		}catch(PDOException $e){
+
 		}
-		return $array;
+		*/
+		try{
+			$array = array();
+			$sql = $this->db->prepare("SELECT descricao,fornecedor,id FROM matprima WHERE descricao LIKE :name AND status = 1 LIMIT 10");
+			$n = "%".$name."%";
+			$sql->bindValue(":name",$n);					
+			$sql->execute();		
+			if($sql->rowCount() > 0){
+				$array = $sql->fetchAll();
+			}		
+			return $array;
+		}catch(PDOException $e){
+
+		}
 	}
 
 	

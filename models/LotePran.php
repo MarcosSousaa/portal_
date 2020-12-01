@@ -1,9 +1,9 @@
 <?php 
 
-class LoteInt extends Model{
+class LotePran extends Model{
 	public function getList(){
 		try{
-			$sql = "SELECT operador.operador as misturador, op.operador as granulador,lote_interno.* FROM lote_interno INNER JOIN operador ON lote_interno.id_operador_m = operador.id INNER JOIN operador op ON lote_interno.id_operador_g = op.id ";
+			$sql = "SELECT operador.operador as operador,lote_pran.* FROM lote_pran INNER JOIN operador ON lote_pran.id_operador = operador.id";
 			$stmt = $this->db->prepare($sql);
 			$stmt->execute();
 			if($stmt->rowCount() > 0){
@@ -16,12 +16,12 @@ class LoteInt extends Model{
 	}
 	public function numberOder(){
 		$lote;		
-		$sql = "SELECT lote as lote FROM lote_interno  ORDER BY lote DESC LIMIT 1 ";	
+		$sql = "SELECT n_bob as n_bob FROM lote_pran  ORDER BY n_bob DESC LIMIT 1 ";	
 		$stmt = $this->db->prepare($sql);		
 		$stmt->execute();						
 		if($stmt->rowCount() > 0 ){			
 			$row = $stmt->fetch();			
-			$lote = $row['lote'];
+			$lote = $row['n_bob'];
 			$lote = $lote + 1;			
 			$lote = str_pad($lote,5,"0", STR_PAD_LEFT);			
 		}else{			
@@ -32,7 +32,7 @@ class LoteInt extends Model{
 	public function getInfo($id){
 		try{
 	 		$array = array();
-        	$sql = "SELECT * FROM lote_interno WHERE id = :id";
+        	$sql = "SELECT * FROM lote_pran WHERE id = :id";
         	$stmt = $this->db->prepare($sql);
         	$stmt->bindParam(":id", $id);
         	$stmt->execute();
@@ -40,7 +40,7 @@ class LoteInt extends Model{
             	$array['info'] =  $stmt->fetch();
 			}
 			
-			$sql = "SELECT lote_lancamento.lote_fornecedor,lote_lancamento.tipo,lote_lancamento.qtd,matprima.descricao,matprima.fornecedor FROM lote_lancamento INNER JOIN matprima ON lote_lancamento.id_matprima = matprima.id WHERE id_lote = :id";
+			$sql = "SELECT pran_lancamento.lote_fornecedor,pran_lancamento.qtd,matprima.descricao,matprima.fornecedor FROM pran_lancamento INNER JOIN matprima ON pran_lancamento.id_matprima = matprima.id WHERE id_lote_pran = :id";
 			$stmt = $this->db->prepare($sql);
 			$stmt->bindParam(":id", $id);
         	$stmt->execute();
@@ -70,29 +70,39 @@ class LoteInt extends Model{
 	}
 
 
-	public function add($lote,$data,$turno,$operador_m,$batidas,$composto,$operador_g,$quantidade,$situacao,$obs,$lote_for,$qtd,$tipo){
-		try{	
-			
-			$sql = "INSERT INTO lote_interno SET lote = :lote, data = :data, turno =:turno,id_operador_m = :operador_m, batidas = :batidas, produto = :composto, id_operador_g = :operador_g, qtd = :quantidade, situacao = :situacao, obs = :obs, TIMESTAMP = NOW()";
+	public function add($n_bob,$data_ini,$hrini,$turno,$maquina,$operador,$data_fim,$hrfim,$especificacao,$espessura,$largura,$metragem,$gramatura,$tipo,$tela,$peso,$obs,$lote_for,$qtd){
+		try{
+
+			$peso = str_replace(",", ".", $peso);
+			$largura = str_replace(",", ".", $largura);
+			$metragem = str_replace(",", ".", $metragem);			
+			$espessura = str_replace(",", ".", $espessura);
+			$sql = "INSERT INTO lote_pran SET n_bob = :n_bob, data_ini = :data_ini, hr_ini = :hrini, turno =:turno,maquina = :maquina, id_operador = :operador, data_fim = :data_fim, hr_fim = :hrfim, especificacao = :especificacao, espessura = :espessura, largura = :largura, metragem = :metragem, gramatura = :gramatura, tipo = :tipo, peso = :peso, tela = :tela, obs = :obs, TIMESTAMP = NOW()";
 			$stmt = $this->db->prepare($sql);
-			$stmt->bindParam(":lote", $lote);
-			$stmt->bindParam(":data", $data);
+			$stmt->bindParam(":n_bob", $n_bob);
+			$stmt->bindParam(":data_ini", $data_ini);
+			$stmt->bindParam(":hrini", $hrini);
 			$stmt->bindParam(":turno", $turno);
-			$stmt->bindParam(":operador_m", $operador_m);
-			$stmt->bindParam(":batidas", $batidas);
-			$stmt->bindParam(":composto", $composto);
-			$stmt->bindParam(":operador_g", $operador_g);
-			$stmt->bindParam(":quantidade",$quantidade);
-			$stmt->bindParam(":situacao", $situacao);
+			$stmt->bindParam(":maquina", $maquina);
+			$stmt->bindParam(":operador", $operador);
+			$stmt->bindParam(":data_fim", $data_fim);
+			$stmt->bindParam(":hrfim",$hrfim);
+			$stmt->bindParam(":especificacao", $especificacao);
+			$stmt->bindParam(":espessura", $espessura);
+			$stmt->bindParam(":largura", $largura);
+			$stmt->bindParam(":metragem", $metragem);
+			$stmt->bindParam(":gramatura", $gramatura);
+			$stmt->bindParam(":tipo", $tipo);
+			$stmt->bindParam(":peso", $peso);
+			$stmt->bindParam(":tela", $tela);
 			$stmt->bindParam(":obs", $obs);
 			$stmt->execute();
 			$id_lote = $this->db->lastInsertId();				
 			foreach($qtd as $lo => $idl){
 				
-				$sqlp = $this->db->prepare("INSERT INTO lote_lancamento SET  id_lote = :lote, lote_fornecedor = :lote_for, tipo = :tipo, qtd = :qtd, id_matprima = :id_matprima");
+				$sqlp = $this->db->prepare("INSERT INTO pran_lancamento SET  id_lote_pran = :lote, lote_fornecedor = :lote_for, qtd = :qtd, id_matprima = :id_matprima");
 				$sqlp->bindValue(":lote", $id_lote);
-				$sqlp->bindValue(":lote_for", $lote_for[$lo]);
-				$sqlp->bindValue(":tipo", $tipo[$lo]);
+				$sqlp->bindValue(":lote_for", $lote_for[$lo]);				
 				$sqlp->bindValue(":qtd", $qtd[$lo]);
 				$sqlp->bindValue(":id_matprima", $lo);				
 				$sqlp->execute();
@@ -120,11 +130,11 @@ class LoteInt extends Model{
 
 	public function delete($id){
 		
-		$sql = "DELETE FROM lote_lancamento WHERE id_lote = :id_lote";
+		$sql = "DELETE FROM pran_lancamento WHERE id_lote_pran = :id_lote";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(":id_lote", $id);
 		$stmt->execute();
-		$sql = "DELETE FROM lote_interno WHERE id = :id_lote";
+		$sql = "DELETE FROM lote_pran WHERE id = :id_lote";
 		$stmt = $this->db->prepare($sql);
 		$stmt->bindValue(":id_lote", $id);
 		$stmt->execute();

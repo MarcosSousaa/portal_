@@ -60,6 +60,9 @@ class Controller{
         if(file_exists('./views/loteint/'. $viewName . '.php')){
             include './views/loteint/'. $viewName . '.php';    
         }
+        if(file_exists('./views/loteprandi/'. $viewName . '.php')){
+            include './views/loteprandi/'. $viewName . '.php';    
+        }
 		
 	}
 
@@ -116,6 +119,9 @@ class Controller{
         }
         if(file_exists('./views/loteint/'. $viewName . '.php')){
             include './views/loteint/'. $viewName . '.php';    
+        }
+        if(file_exists('./views/loteprandi/'. $viewName . '.php')){
+            include './views/loteprandi/'. $viewName . '.php';    
         }
     }
 

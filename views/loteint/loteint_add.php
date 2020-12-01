@@ -1,3 +1,9 @@
+<style>
+    .searchresults{
+         
+    }
+</style>
+
 
 <h3  style="text-align: center">Lote Interno - Adicionar </h3>
 
@@ -24,7 +30,7 @@
             </select>
             <span class="errorMsgTurno"></span>            
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
             <label>Operador Misturador</label>
             <select class="form-control" id="operador_m" name="operador_m"></select>
             <span class="errorMsgOperadorM"></span>          
@@ -42,14 +48,11 @@
                 <option disabled="" selected="">Escolha um produto</option>
                 <option value="EST">Esticavel</option>
                 <option value="ENC">Encolhivel</option>
-                <option value="SKI">Skin</option>
-                <option value="BAN">Banstretch</option>
-                <option value="COS">Coex Standard</option>
-                <option value="COP">Coex Plus</option>
+                <option value="SKI">Skin</option>                
             </select>
             <span class="errorMsgComposto"></span>    
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
             <label>Operador Granuladora</label>
             <select class="form-control" id="operador_g" name="operador_g"></select>
             <span class="errorMsgOperadorG"></span>          
@@ -60,9 +63,12 @@
             <span class="errorMsgQtd"></span>     
         </div>      
     </div>
+    <div class="row">
+    </div>
     <div class="form-row">
         <h2>Materias Prima</h2>
         <input type="text" id="add_mp" data-type="searchMp" class="form-control" />	
+        
         <table class="table align-items-center table-flush display" width="100%" id="mp_table">
             <tr>        
                 <th>MP</th>
@@ -78,18 +84,26 @@
         <div class="form-group col-md-3">
             <label>Status</label><br>
             <label for="aprovacaofim" class="radio">
-                <input type="radio" id="aprovacaofim" name="aprovacaofim" value="1">
+                <input type="radio" id="situacaoi" name="situacao" value="1">
                 Aprovado
             </label>
             <label for="reprovacaofim" class="radio">
-                <input type="radio" id="reprovacaofim" name="aprovacaofim" value="2">
+                <input type="radio" id="situacaof" name="situacao" value="2">
                 Reprovado     
             </label>
             <span class="errorMsgSituFim"></span>    
         </div>
     </div>
+    <div class="form-row">
+        <label for="obs">Observações</label>
+        <textarea  class="form-control" rows="5" name="obs"  id="obs" style="text-align:left;"></textarea>
+        <span class="errorMsgObs"></span>
+    </div>
+
+    
     <a class="btn btn-info" href="<?= BASE_URL?>/loteint">VOLTAR</a>
-    <input type="button" name="addLote" id="addLoteInt" value="Adicionar" class="btn btn-primary">    
+    <input type="button" name="addLote" id="addLoteInt" value="Adicionar" class="btn btn-primary">        
+    
 </form>
 <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/script_loteinterno_add.js"></script>

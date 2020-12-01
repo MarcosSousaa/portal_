@@ -116,13 +116,13 @@ $(document).ready(function(){
 			setTimeout(function(){
 	    		$('input[name="aprovacaoini"]').focus();
 	    		$('input[name="aprovacaoini"]').css("border","1px solid red");
-	    		$('.errorMsgSitu').text('Escolha uma aprovação de inicio');
-	    		$('.errorMsgSitu').css("color","red");
+	    		$('.errorMsgSituIni').text('Escolha uma aprovação de inicio');
+	    		$('.errorMsgSituIni').css("color","red");
 	    	});
         	setTimeout(function(){
         		$('input[name="aprovacaoini"]').focus();
         		$('input[name="aprovacaoini"]').css("border-color","rgb(169, 169, 169)");
-        		$('.errorMsgSitu').text("");
+        		$('.errorMsgSituIni').text("");
         	},10000); 
         	valida = false;                   	
 		}

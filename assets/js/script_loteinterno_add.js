@@ -1,4 +1,48 @@
+function addMp(obj){
+	$('#add_mp').val('');
+	var id = $(obj).attr('data-id');
+	var name = $(obj).attr('data-descricao');	
+	$('.searchresults').hide();
+	if( $('input[name="mp['+id+']"').length == 0 ){
+		var tr = '<tr>'+
+				'<td>'+name+'</td>'+
+				'<td>'+				
+					'<input type="text" name="lote_for['+id+']" class="p_lote form-control" required/>'+				
+				'</td>'+
+				'<td>'+				
+					'<input type="text" name="qtd['+id+']" class="p_qtd form-control" required/>'+				
+				'</td>'+
+				'<td>'+				
+					'<select name="tipo['+id+']" class="form-control"><option value="0001">%</option><option value="0002">KG</option></select>'+				
+				'</td>'+				
+				'<td><a href="javascript:;" onclick="excluirMP(this)" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>'+
+		'</tr>';		
+		$('#mp_table').append(tr);
+	}	
+
+}
+
+function excluirMP(obj){	
+	$(obj).closest('tr').remove();
+	
+}
+
+function validaTabela(nomeDosCampos) {
+	var todosTextArea = document.getElementsByName(nomeDosCampos);
+	alert('ta aqui');
+	alert(todosTextArea);
+	for (var i = 0; i < todosTextArea.length; i++) {
+		
+		var textArea = todosTextArea[i];
+		if (textArea.value.length < 3) {
+			alert("Não é permitido menos de 10 caracteres");
+			return;
+		}
+	}
+}
+
 $(function(){	
+	$('#quantidade').mask("#.##0,000", {reverse: true });
 	// FUNCAO AJAX CARREGA OPTION OPERADOR
 	$.ajax({
 		type: 'POST',
@@ -11,35 +55,38 @@ $(function(){
 	});
 	
 	// FUNCAO DE BUSCA MP NO SISTEMA
-	$('#add_mp').on('keyup', function(){		
-		var datatype = $(this).attr('data-type');
-		var f = $(this).val();
+	$('#add_mp').on('keyup', function(){				
 		
-		if(datatype != ''){								
+		if($('#add_mp').val().length >= 2){			
+			var datatype = $(this).attr('data-type');
+			var f = $(this).val();
+								
 			$.ajax({
 				url: BASE_URL+'/ajax/'+datatype,
-				type: 'GET',				
 				data: {q:f},
+				type: 'GET',								
 				dataType: 'json'							
-			}).done(function(json){		
-				alert('deu certo');
-				alert(json);
+			}).done(function(json){						
 				if ( $('.searchresults').length == 0 ){										
 						$('#add_mp').after('<div class="searchresults"></div>');												
 					}
 					$('.searchresults').css('left', $('#add_mp').offset().left+'px');
 					$('.searchresults').css('top', $('#add_mp').offset().top+$('#add_mp').height()+'px');					
+					//$('#add_mp').height()+'px');					
 					var html = '';
 					for(var i in json){
-						html += '<div class="si"><a href="javascript:;" Onclick="addMp(this)" data-id="'+json[i].id+'">'+json[i].descricao+' - '+json[i].fornecedor+'</a></div>';
+						html += '<div class="si"><a href="javascript:;" Onclick="addMp(this)" data-descricao="'+json[i].descricao+'" data-id="'+json[i].id+'">'+json[i].descricao+' - '+json[i].fornecedor+'</a></div>';
 					}
-
 					$('.searchresults').html(html);
 					$('.searchresults').show();
 			}).fail(function(){
 					
 			});		
+		}
+		else {
+			$('.searchresults').hide();
 		} 
+	
 
 		
 	});
@@ -56,8 +103,9 @@ $(function(){
         var batidas = $('#batidas').val();
         var composto = $('#composto').val();
         var qtd = $('#quantidade').val();
-        var op_g = $('#operador_g').val();
-
+		var op_g = $('#operador_g').val();	
+		var lote_for = 'lote_for';
+		validaTabela(lote_for);
 		if(turno == null){
 			setTimeout(function(){
         		$('#turno').focus();
@@ -71,8 +119,8 @@ $(function(){
         		$('.errorMsgTurno').text("");
     		},10000); 
     		valida = false;                    
-		}
-
+		}					
+		
         else if(op_m == null){
 	    	setTimeout(function(){
 	    		$('#operador_m').focus();
@@ -146,7 +194,8 @@ $(function(){
         		$('.errorMsgQtd').text("");
         	},100000); 
         	valida = false;                     	
-        }
+		}
+		
 
         else {        	
         	valida = true;
@@ -154,30 +203,6 @@ $(function(){
         		$('form').submit();
         	}
         }
-	});
-
-	$('#upLimp').click(function(){
-		var valid = true;				
-		if(!$("input[type='radio'][name='quali']").is(':checked')){				
-			setTimeout(function(){
-	    		$('input[name="quali"]').focus();
-	    		$('input[name="quali"]').css("border","1px solid red");
-	    		$('.errorMsgSitu').text('Escolha uma situação de aprovação');
-	    		$('.errorMsgSitu').css("color","red");
-	    	});
-        	setTimeout(function(){
-        		$('input[name="quali"]').focus();
-        		$('input[name="quali"]').css("border-color","rgb(169, 169, 169)");
-        		$('.errorMsgSitu').text("");
-        	},10000); 
-        	valida = false;                   	
-		}
-		else {			
-			valida = true;
-        	if(valida){
-        		$('form').submit();
-        	}	
-		}
 	});
 
 });

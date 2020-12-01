@@ -149,7 +149,7 @@ class limpezaController extends Controller {
                  header("Location:". BASE_URL.'/limpeza');
                  exit();
             }
-            
+    
             $data['limpeza_info'] = $l->getInfo($id);
             $data['operador'] = $op->getList();
             $this->loadTemplate('limpeza_edit', $data);
